@@ -1,29 +1,29 @@
 # citas-taller
-Descripción
+# Descripción
 
 Este proyecto implementa un sistema distribuido de citas médicas utilizando una arquitectura basada en eventos. El sistema permite la creación y cancelación de citas evitando conflictos de concurrencia mediante el uso de Redis, y procesa eventos de manera asíncrona usando RabbitMQ y AsyncIO.
 
 El objetivo es demostrar un sistema desacoplado, concurrente y escalable.
 
-Arquitectura
+# Arquitectura
 
 El sistema sigue el siguiente flujo:
 
 Cliente → API (FastAPI) → Redis (control de concurrencia) → RabbitMQ → Worker (AsyncIO) → Notificación y Log
 
-Componentes principales:
+# Componentes principales:
 FastAPI: Punto de entrada para las solicitudes
 Redis: Manejo de bloqueo para evitar citas duplicadas
 RabbitMQ: Sistema de mensajería para eventos
 Worker: Procesamiento asíncrono de eventos
-Estructura del Proyecto
+# Estructura del Proyecto
 proyecto/
 │── main.py            # API principal
 │── worker.py          # Consumidor de eventos
 │── redis_client.py    # Conexión a Redis
 │── producer.py        # Productor de eventos (RabbitMQ)
 │── requirements.txt   # Dependencias
-Requisitos
+# Requisitos
 Python 3.8+
 Redis
 RabbitMQ
@@ -31,36 +31,8 @@ RabbitMQ
 Instalar dependencias:
 
 pip install -r requirements.txt
-Ejecución del Proyecto
-1. Iniciar Redis
-redis-server
-2. Iniciar RabbitMQ
-sudo service rabbitmq-server start
-3. Ejecutar Worker
-python worker.py
-4. Ejecutar API
-uvicorn main:app --reload
-5. Acceder a la documentación
-http://127.0.0.1:8000/docs
-Endpoints
-Crear cita
-POST /crear_cita?horario=10am
 
-Respuesta:
-
-{
-  "mensaje": "Cita creada para 10am"
-}
-Cancelar cita
-DELETE /cancelar_cita?horario=10am
-Ver horarios ocupados
-GET /horarios
-Pruebas
-Crear una cita en un horario disponible
-Intentar crear la misma cita nuevamente (debe fallar)
-Cancelar la cita
-Verificar los eventos en el worker
-Tecnologías utilizadas
+# Tecnologías utilizadas
 FastAPI
 Redis
 RabbitMQ
